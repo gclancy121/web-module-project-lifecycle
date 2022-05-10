@@ -32,7 +32,10 @@ class App extends React.Component {
         id: Date.now(),
         completed: false
       }
-
+      axios.post(URL, newTodo)
+        .then(() => {
+          console.log('success!')
+    });
       this.setState({
         todos: [newTodo, ...this.state.todos]
       })
@@ -56,14 +59,25 @@ class App extends React.Component {
       })
     }
 
+    handlePatch = () => {
+      const postable = this.state.todos.filter(status => status.completed === false);
+      this.setState({
+        todos: postable
+      })
+      axios.delete(`http://localhost:9000/api/todos/:id`, postable)
+        .then(res => {
+          console.log(res)
+        })
+    }
 
   render() {
+    {/* patch URL: http://localhost:9000/api/todos/:id*/}
     return (
       <div>
         <h1>Todo App</h1>
         <TodoList todos = {this.state.todos} toggleCompleted={this.toggleCompleted} />
         <TodoForm addTodo={this.addTodo}/>
-      <button>Clear</button>
+        <button onClick={this.handlePatch}>Clear Completed</button>
       </div>
     )
   }
