@@ -64,10 +64,13 @@ class App extends React.Component {
       this.setState({
         todos: postable
       })
-      axios.delete(`http://localhost:9000/api/todos/:id`, postable)
+      postable.forEach((todo) => {
+        axios.patch(`http://localhost:9000/api/todos/${todo.id}`, postable)
         .then(res => {
           console.log(res)
         })
+      })
+      
     }
 
   render() {

@@ -25,7 +25,6 @@ class TodoForm extends React.Component {
 
  
   render() {
-     {/* patch URL: http://localhost:9000/api/todos/:id*/}
     return(
       <form onSubmit={this.handleSubmit}>
         <input 
